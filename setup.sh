@@ -1,27 +1,25 @@
-#! /bin/bash
+#! /usr/bin/env zsh
 
-set -e
-
-scripthome=$(realpath $(dirname $0))
+DIR=${0:a:h}
 
 echo "installing antibody..."
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
 echo "linking dot files..."
-for config in $scripthome/config/*; do
-    configtarget="$HOME/.$(basename $config)"
+for config in $DIR/config/*; do
+  configtarget="$HOME/.$(basename $config)"
 
-    # Check the original.
-    if [ -f $configtarget ]; then 
-	if [ ! -h $configtarget ]; then
-	    echo "Moving original file $configtarget -> $configtarget.bak"
-            mv $configtarget "$configtarget.bak"
-	fi
+  # Check the original.
+  if [ -f $configtarget ]; then 
+    if [ ! -h $configtarget ]; then
+      echo "Moving original file $configtarget -> $configtarget.bak"
+      mv $configtarget "$configtarget.bak"
     fi
+  fi
     
-    # Make links
-    echo "Linking $configtarget -> $config"
-    ln -fs $config $configtarget 
+  # Make links
+  echo "Linking $configtarget -> $config"
+  ln -fs $config $configtarget 
 done
 
 echo "installing asdf-vm..."

@@ -3,7 +3,7 @@ antibody bundle < ~/.zsh_plugins
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH=$HOME:/usr/local/opt/curl/bin:/usr/local/sbin:/usr/local/opt/node@10/bin:$PATH:~/bin/:/usr/local/opt/mysql@5.5/bin:~/src/pulsara/devops/deployment/bin
+export PATH=$HOME:/usr/local/sbin:~/bin/:$PATH
 
 setopt HIST_IGNORE_DUPS
 setopt APPENDHISTORY     #Append history to the history file (no overwriting)

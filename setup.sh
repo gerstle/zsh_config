@@ -4,9 +4,10 @@ set -e
 
 scripthome=$(realpath $(dirname $0))
 
-# install antibody
+echo "installing antibody..."
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
+echo "linking dot files..."
 for config in $scripthome/config/*; do
     configtarget="$HOME/.$(basename $config)"
 
@@ -23,6 +24,9 @@ for config in $scripthome/config/*; do
     ln -fs $config $configtarget 
 done
 
-source ~/.zshrc
+echo "installing asdf-vm..."
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.8
 
+source ~/.zshrc
 p10k configure
+

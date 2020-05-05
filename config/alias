@@ -1,0 +1,62 @@
+# ------------------------------------------------------------------------------
+# misc
+# ------------------------------------------------------------------------------
+alias weather='curl wttr.in'
+
+# ------------------------------------------------------------------------------
+# vi...
+# ------------------------------------------------------------------------------
+alias vim="nvim"
+alias e="nvim"
+alias :e="nvim"
+alias ll="ls -hlFG"
+alias curl="curl -s"
+alias gw="./gradlew"
+
+# ------------------------------------------------------------------------------
+# mac stuff
+# ------------------------------------------------------------------------------
+alias f='open -a Finder ./' # open current directory in finder
+trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+
+# ------------------------------------------------------------------------------
+# git
+# ------------------------------------------------------------------------------
+alias git-prune-merged='comm -12 <(git branch | sed "s/ *//g") <(git remote prune origin | sed "s/^.*origin\///g") | xargs -L1 -J % git branch -D %; git branch -l'
+function parse_git_branch () {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+alias git-branch-desc='git branch | while read line; do 
+    description=$(git config branch.$(echo "$line" | sed "s/\* //g").description)
+    echo "$line"
+    if [ "$description" ]
+    then
+        echo "        $description"
+    fi
+done'
+
+# ------------------------------------------------------------------------------
+# docker
+# ------------------------------------------------------------------------------
+function dsh() { docker exec -e COLUMNS="`tput cols`" -e LINES="`tput lines`" -it $(docker ps | grep $1 | cut -d" " -f1) /bin/bash; }
+function dstart() { docker container start $(docker ps -a | grep $1 | cut -d" " -f1); }
+function dstop() { docker container stop $(docker ps -a | grep $1 | cut -d" " -f1); }
+
+# ------------------------------------------------------------------------------
+# ruby
+# ------------------------------------------------------------------------------
+alias be='bundle exec'
+alias br='be rake'
+alias c='br c'
+alias cop='be rubocop'
+
+
+# ------------------------------------------------------------------------------
+# time
+# ------------------------------------------------------------------------------
+function timet() {
+    DIR="/Users/cgerstle/src/personal/py-scripts"
+    $DIR/venv/bin/python $DIR/timet.py "$@"
+}

@@ -1,0 +1,54 @@
+source <(antibody init)
+antibody bundle < ~/.zsh_plugins
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH=$HOME:/usr/local/opt/curl/bin:/usr/local/sbin:/usr/local/opt/node@10/bin:$PATH:~/bin/:/usr/local/opt/mysql@5.5/bin:~/src/pulsara/devops/deployment/bin
+
+setopt HIST_IGNORE_DUPS
+setopt APPENDHISTORY     #Append history to the history file (no overwriting)
+# setopt SHAREHISTORY      #Share history across terminals
+setopt INCAPPENDHISTORY  #Immediately append to the history file, not just when a term is killed
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
+source ~/.alias
+
+# asdf and SDK stuff
+. /Users/cgerstle/.asdf/asdf.sh
+# append completions to fpath
+fpath=(/completions /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/5.3/functions /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-autosuggestions /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions/src /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-powerlevel10k)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+. ~/.asdf/plugins/java/set-java-home.zsh
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+# Use vim cli mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# These used to work, now they don't ¯\_(ツ)_/¯
+  # bindkey '^[OH' beginning-of-line
+  # bindkey -M vicmd '^[OH' beginning-of-line
+  # bindkey '^[OF' end-of-line
+  # bindkey -M vicmd '^[OF' end-of-line
+# but these do
+bindkey '^[[H' beginning-of-line
+bindkey -M vicmd '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey -M vicmd '^[[F' beginning-of-line
+
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+# backspace and ^h working even after
+# returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+
+# ctrl-w removed word backwards
+bindkey '^w' backward-kill-word
+
+# ctrl-r starts searching history backward
+bindkey '^r' history-incremental-search-backward

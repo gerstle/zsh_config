@@ -1,8 +1,9 @@
 # ------------------------------------------------------------------------------
 # misc
 # ------------------------------------------------------------------------------
-alias weather='curl wttr.in'
+alias weather='curl wttr.in/Santa_Cruz'
 alias hg='history 1 | grep'
+fe () { find . -name $1 -exec vim {} + ; }
 
 # ------------------------------------------------------------------------------
 # vi...
@@ -55,9 +56,33 @@ alias cop='be rubocop'
 
 
 # ------------------------------------------------------------------------------
-# time
+# python scripts
 # ------------------------------------------------------------------------------
 function timet() {
     DIR="/Users/cgerstle/src/personal/py-scripts"
     $DIR/venv/bin/python $DIR/timet.py "$@"
+}
+
+function emoji() {
+    DIR="/Users/cgerstle/src/personal/py-scripts"
+    EMOJI=$($DIR/venv/bin/python $DIR/emoji.py "$@") 
+    echo $EMOJI | tr -d '\n' | tr -d '\r' | pbcopy
+    echo $EMOJI
+}
+
+# ------------------------------------------------------------------------------
+# pulsara
+# ------------------------------------------------------------------------------
+alias vssh='vagrant ssh $(vagrant global-status | grep "\<single\>" | perl -lane "print @F[0]")'
+alias ch='conhost.sh'
+env-config() {
+    if [ "$1" = "integration" ]; then
+        BRANCH="$1"
+    else
+        BRANCH="deployments/$1"
+    fi
+    curl -s -H 'Authorization: token 4c401dea3fc366835105bd90f2a90ad95a72a030' "https://raw.githubusercontent.com/CommuniCare-Technology/infrastructure/${BRANCH}/configs/$1/$2.config.yml"
+}
+ecr-tags() {
+	aws ecr describe-images --repository-name $1 --query 'sort_by(imageDetails,& imagePushedAt)[*]' | jq '.[-5:] | .[] | .imageDigest, .imageTags'
 }

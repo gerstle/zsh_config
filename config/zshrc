@@ -6,6 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 source <(antibody init)
+antibody bundle romkatv/powerlevel10k
 antibody bundle < ~/.zsh_plugins
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

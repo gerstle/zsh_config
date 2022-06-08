@@ -1,0 +1,28 @@
+[user]
+	name = casey gerstle
+	email = casey.gerstle@pulsara.com
+[core]
+	autocrlf = input
+	excludesfile = /Users/cgerstle/.gitignore
+[alias]
+	unstage = reset HEAD
+	alias = config --get-regexp ^alias\\.
+	spull = submodule update --recursive --remote
+	s = status --short --branch
+	desc = branch --edit-description
+	h = log --pretty=format:'%h %as %s [%an]'
+	diff-log = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+[merge]
+	tool = gvimdiff
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[pager]
+	branch = false
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true

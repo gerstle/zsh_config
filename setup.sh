@@ -3,7 +3,7 @@
 DIR=${0:a:h}
 
 echo "installing antibody..."
-curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+Brew install antibody
 
 echo "linking dot files..."
 for config in $DIR/config/*; do

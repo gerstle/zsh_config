@@ -26,12 +26,12 @@ ZSH_AUTOSUGGEST_HISTORY_IGNORE=('cd *')
 source ~/.alias
 
 # asdf and SDK stuff
-. /Users/cgerstle/.asdf/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
 # append completions to fpath
 fpath=(/usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/5.7.1/functions /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-autosuggestions /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions/src /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions /Users/cgerstle/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-romkatv-SLASH-powerlevel10k ${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
-. ~/.asdf/plugins/java/set-java-home.zsh
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 # Use vim cli mode
@@ -64,3 +64,4 @@ bindkey -M vicmd 'J' up-history
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 export HOMEBREW_GITHUB_API_TOKEN=$(cat ~/.github/pat)
+alias config='/usr/bin/git --git-dir=/Users/cgerstle/.cfg/ --work-tree=/Users/cgerstle'

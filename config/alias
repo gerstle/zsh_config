@@ -5,16 +5,16 @@ alias weather='curl wttr.in/Santa_Cruz'
 alias hg='history 1 | grep'
 fe () { find . -name $1 -exec vim {} + ; }
 rm-known-host () { sed -i .bak "$1d" ~/.ssh/known_hosts }
+alias ll="ls -hlFG"
+alias curl="curl -s"
+alias gw="./gradlew"
 
 # ------------------------------------------------------------------------------
 # vi...
 # ------------------------------------------------------------------------------
-alias vim="nvim"
-alias e="nvim"
-alias :e="nvim"
-alias ll="ls -hlFG"
-alias curl="curl -s"
-alias gw="./gradlew"
+alias vim="vim"
+alias e="vim"
+alias :e="vim"
 
 # ------------------------------------------------------------------------------
 # mac stuff
@@ -81,15 +81,9 @@ env-config() {
         echo "Usage: env-config <environment name> <app>"
     fi
 
-    if [ "$1" = "integration" ]; then
-        BRANCH="$1"
-    else
-        BRANCH="deployments/$1"
-    fi
-
-
-    TOKEN=$(cat ~/.github/pat)
-    curl -s -H "Authorization: token ${TOKEN}" -H "Accept: application/vnd.github.v3.raw" "https://api.github.com/repos/CommuniCare-Technology/infrastructure/contents/configs/${1}/${2}.config.yml?ref=${BRANCH}" | bat -l yaml
+    branch="deployments/$1"
+    token=$(cat ~/.github/pat)
+    curl -s -H "Authorization: token ${token}" -H 'Accept: application/vnd.github.v3.raw' "https://api.github.com/repos/CommuniCare-Technology/infrastructure/contents/configs/${1}/${2}.config.yml?ref=${branch}" | bat -l yaml
 }
 ecr-tags() {
 	aws ecr describe-images --repository-name $1 --query 'sort_by(imageDetails,& imagePushedAt)[*]' | jq '.[-5:] | .[] | .imageDigest, .imageTags'

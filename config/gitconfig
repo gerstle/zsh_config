@@ -12,6 +12,8 @@
 	desc = branch --edit-description
 	h = log --pretty=format:'%h %as %s [%an]'
 	diff-log = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	br = branch
+	co = checkout
 [merge]
 	tool = gvimdiff
 [pager]
@@ -20,3 +22,5 @@
 	rebase = true
 [rebase]
 	autoStash = true
+[init]
+	defaultBranch = main
